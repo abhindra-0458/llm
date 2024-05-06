@@ -1,0 +1,38 @@
+import webbrowser
+import platform
+import subprocess
+import openai
+
+
+openai.api_key = 'sk-proj-TUZtiuBCQoiAgbay8PriT3BlbkFJAgP5zj4R9CvFRpg1v6qt'
+
+def open_url_in_browser(url):
+    webbrowser.open(url)
+
+def close_tab_in_browser():
+    system = platform.system()
+    if system == "Windows":
+        subprocess.run(["taskkill", "/F", "/IM", "chrome.exe"])  
+    else:
+        print("Unsupported platform")
+
+def process_user_input(user_input):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=user_input + "\n",
+        max_tokens=150
+    )
+    return response.choices[0].text.strip()
+
+
+if __name__ == "__main__":
+    user_input = input("How can I assist you today? ")
+    processed_input = process_user_input(user_input)
+    
+    if "open" in processed_input.lower() and "url" in processed_input.lower():
+        url = input("Enter the URL to open: ")
+        open_url_in_browser(url)
+    elif "close" in processed_input.lower() and "tab" in processed_input.lower():
+        close_tab_in_browser()
+    else:
+        print("I'm sorry, I didn't understand your request.")
