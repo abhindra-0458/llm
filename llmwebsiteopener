@@ -4,7 +4,7 @@ import subprocess
 import openai
 
 
-openai.api_key = 'sk-proj-TUZtiuBCQoiAgbay8PriT3BlbkFJAgP5zj4R9CvFRpg1v6qt'
+openai.api_key = '..'
 
 def open_url_in_browser(url):
     webbrowser.open(url)
